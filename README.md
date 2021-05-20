@@ -1,62 +1,63 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# REST API
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This is Laravel REST API for managing blog posts using laravel passport authentication.
 
-## About Laravel
+# Api endpoints
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+-   GET /api/posts - Fetch all blog posts
+-   GET /api/posts/{id} - Fetch a blog post by id
+-   PUT|PATCH /api/posts/{id} - Update a blog post
+-   POST /api/posts - Create a new blog post
+-   DELETE /api/posts/{id} - Delete a blog post
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Authentication endpoints
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+-   POST /api/login
+-   POST /api/register
 
-## Learning Laravel
+# Setup
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. Download / clone project. Navigate to project folder.</br>
+2. Install composer dependencies using following command:</br>
+ <pre>composer install</pre>
+3. Create .env file (copy from .env.example).</br>
+4. Run php artisan key:generate.</br>
+5. Create empty DB and set up .env file with database information.</br>
+6. Run migrations</br>
+ <pre>php artisan migrate</pre>
+7. Seed database to insert 5 users and 3 blog post for each user (for testing if needed)</br>
+ <pre>php artisan db:seed</pre>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+To test API endpoints you can use Postman.
 
-## Laravel Sponsors
+# Usage
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+To register make POST request to /api/register route</br>
+with provided name, email, password. All keys are required.</br>
 
-### Premium Partners
+To login, make POST request to /api/login route</br>
+with valid email and password. Response will return</br>
+authorization token for other requests.</Br>
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
+# Authorization
 
-## Contributing
+When testing API that requires a user to be authenticated, you need to specify two headers.</br> You must specify access token as a Bearer token in the Authorization header.</br>
+You must specify Content-type header as application/json.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# Making requests
 
-## Code of Conduct
+To create a blog posts we need to make POST request to route</br>
+`/api/posts`</br>
+with title and body. Minimum length of a title is 5 characters and for body 3 characters.</br>
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+For fetching all blog posts we need to make GET request to route</br>
+`/api/posts`</br>
 
-## Security Vulnerabilities
+For fetching single blog post we need to make GET request to route</br>
+`/api/posts/{id}` </br>with valid post ID (/api/posts/6).</br>
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+For updating a blog post we need to make PUT|PATCH request to route</br>
+`/api/posts/{id}` </br>with title and body.</br>
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+For deletind a blog posts we need to make DELETE request to route</br>
+`/api/posts/{id}` </br>with valid post ID (/api/posts/1).</br>

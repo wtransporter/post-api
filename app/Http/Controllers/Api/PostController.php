@@ -63,11 +63,7 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        $attributes = $request->validate([
-            'title' => 'required',
-            'content' => 'required'
-        ]);
-
+        $attributes = $request->only(['title', 'content']);
         $attributes['user_id'] = $request->user()->id;
 
         $post->update($attributes);
