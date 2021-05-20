@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Post;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
@@ -28,6 +29,29 @@ class PostController extends Controller
     public function show(Post $post)
     {
         return new PostResource($post->load('user'));
+    }
+
+    /**
+     * Store given post to database
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function store(Request $request)
+    {
+        $attributes = $request->validate([
+            'title' => 'required',
+            'content' => 'required'
+        ]);
+
+        $attributes['user_id'] = $request->user()->id;
+
+        $post = Post::create($attributes);
+        
+        return response([
+            'message' => 'Post successfully saved.',
+            'post' => $post
+        ], 201);
     }
 
     /**
