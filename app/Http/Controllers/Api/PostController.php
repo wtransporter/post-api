@@ -55,6 +55,29 @@ class PostController extends Controller
     }
 
     /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @param Post $post
+     * @return Response
+     */
+    public function update(Request $request, Post $post)
+    {
+        $attributes = $request->validate([
+            'title' => 'required',
+            'content' => 'required'
+        ]);
+
+        $attributes['user_id'] = $request->user()->id;
+
+        $post->update($attributes);
+
+        return response([
+            'mesage' => 'Post updated.'
+        ], 201);
+    }
+
+    /**
     * Delete the given post.
     *
     * @param Post $post

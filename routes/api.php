@@ -23,8 +23,6 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
-    Route::get('/posts', [PostController::class, 'index']);
-    Route::get('/post/{post}', [PostController::class, 'show']);
-    Route::post('/post', [PostController::class, 'store']);
-    Route::delete('/post/{post}', [PostController::class, 'destroy']);
+
+    Route::resource('posts', PostController::class)->except(['create', 'edit']);
 });
