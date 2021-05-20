@@ -1,6 +1,6 @@
 # REST API
 
-This is Laravel REST API for managing blog posts using laravel passport authentication.
+This is Laravel REST API for managing blog posts using laravel sanctum authentication.
 
 # Api endpoints
 
