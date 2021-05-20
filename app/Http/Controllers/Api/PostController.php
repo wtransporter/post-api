@@ -20,7 +20,7 @@ class PostController extends Controller
     }
 
     /**
-     * Display given model
+     * Display given post
      *
      * @param Post $post
      * @return Response
@@ -28,5 +28,27 @@ class PostController extends Controller
     public function show(Post $post)
     {
         return new PostResource($post->load('user'));
+    }
+
+    /**
+    * Delete the given post.
+    *
+    * @param Post $post
+    * @return \Illuminate\Http\RedirectResponse
+    */
+    public function destroy(Post $post)
+    {
+        $deletedPost = $post;
+        
+        if (!$post->delete()) {
+            return response([
+                'message' => 'Error deleting post.',
+            ], 422);
+        }
+
+        return response([
+            'message' => 'Post deleted.',
+            'post' => $deletedPost
+        ]);
     }
 }
